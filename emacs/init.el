@@ -35,9 +35,6 @@
 ;; Setup the visible bell
 (setq visible-bell t)
 
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
 ;; Set the fill column
 (set-fill-column 75)
 
@@ -51,15 +48,20 @@
 	 :map ivy-minibuffer-map
 	 ("TAB" . ivy-alt-done)
 	 ("C-l" . ivy-alt-done)
-	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
+	 ("C-n" . ivy-next-line)
+	 ("C-p" . ivy-previous-line)
 	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
+	 ("C-p" . ivy-previous-line)
 	 ("C-l" . ivy-done)
 	 ("C-d" . ivy-switch-buffer-kill)
 	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
+	 ("C-p" . ivy-previous-line)
 	 ("C-d" . ivy-reverse-i-search-kill)))
+
+
+;; The first time on a machine:
+;; M-x all-the-icons-install-fonts
+(use-package all-the-icons)
 
 (use-package doom-modeline
   :ensure t
@@ -94,21 +96,15 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
-(use-package doom-themes)
+(use-package doom-themes
+  :init (load-theme 'doom-dracula t))
 
-;; Added by emacs to mark the theme as safe
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("234dbb732ef054b109a9e5ee5b499632c63cc24f7c2383a849815dacc1727cb6" default)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
-(load-theme 'doom-dracula)
+(use-package general
+  :config
+  ;; Use the counsel switch buffer instead
+  (general-define-key "C-x b" 'counsel-switch-buffer)
+
+  ;; Make ESC quit prompts
+  (general-define-key "<escape>" 'keyboard-escape-quit))
+
