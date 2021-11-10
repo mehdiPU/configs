@@ -1,0 +1,33 @@
+* First heading
+
+  This is *some* content
+
+  1. One
+  2. Two
+  3. Three
+
+  Here is the org [[https://orgmode.org][mode home page]]
+  
+  | Name    | Age  | Uses emacs |
+  | ______    | _____  | ____________ |
+  | Mehdi   | 21   | Yes        |
+  | Someone | Else | Yes        |
+
+  - [X] First item
+  - [X] Second item
+  - [ ] Third item
+
+** A smaller heading
+
+   More content
+
+* TODO Inserted heading
+  
+  #+begin_src emacs-lisp
+
+(defun my-elisp-func () 
+  (message "Hello!"))
+
+  #+end_src
+
+* Second heading
