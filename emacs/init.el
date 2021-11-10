@@ -97,7 +97,7 @@
   ([remap describe-key] . helpful-key))
 
 (use-package doom-themes
-  :init (load-theme 'doom-dracula t))
+  :init (load-theme 'doom-acario-dark t))
 
 
 (use-package general
@@ -108,3 +108,23 @@
   ;; Make ESC quit prompts
   (general-define-key "<escape>" 'keyboard-escape-quit))
 
+;; TODO Use evil and evil-collection to use vim key bindings
+;; TODO Take a look at hydra as well
+
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  (setq projectile-switch-project-action #'projectile-dired))
+
+(use-package counsel-projectile
+  :config (counsel-projectile-mode))
+
+(use-package magit
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+;; (use-package evil-magit :after magit)
