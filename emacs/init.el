@@ -266,6 +266,11 @@
     (add-to-list 'lsp-disabled-clients 'pyls)
     (add-to-list 'lsp-enabled-clients 'jedi)))
 
+(use-package cmake-mode
+  :hook (cmake-mode . lsp-deferred)
+  :config
+  (add-to-list 'lsp-enabled-clients 'cmakels))
+
 (use-package ccls
   :ensure t
   :config
@@ -275,7 +280,9 @@
   (add-hook 'c++-mode-hook 'lsp-deferred))
 
 (use-package yasnippet
-  :insure t)
+  :ensure t)
+
+
 
 (provide 'init)
 ;;; init.el ends here
