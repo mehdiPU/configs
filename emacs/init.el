@@ -176,6 +176,14 @@
   :hook (org-mode . mehdi/org-mode-setup)
   :config
   (setq org-ellipsis " ▾")
+
+  (setq org-genda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  
+  (setq org-agenda-files
+	'("~/hdd/configs/emacs/orgFiles/tasks.org"))
+  
   (mehdi/org-font-setup))
 
 (use-package org-bullets
@@ -191,4 +199,57 @@
 
 (use-package visual-fill-column
   :hook (org-mode . mehdi/org-mode-visual-fill))
+
+;; Language Server Protocole mode ---------------------------
+
+(defun mehdi/lsp-mode-setup ()
+  (setq lsp-header-line-breadcrumb-segments '(path-up-to-project file symbol))
+  (lsp-headerline-breadcrumb-mode))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . mehdi/lsp-mode-setup)
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (lsp-enable-which-key-integration t))
+
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode))
+
+(use-package lsp-treemacs
+  :after lsp)
+
+(use-package lsp-ivy)
+
+(use-package company
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind
+  (:map company-active-map
+	("<tab>" . company-complete-selection))
+  (:map lsp-mode-map ("<tab>" . company-indent-or-complete-common))
+
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-dely 0.0))
+
+;; Error
+;; (use-package evil-nerd-commenter	
+;;   :bind ("M-/" . evil-comment-or-uncomment-lines))
+
+;; Had a problem with it
+;;(use-package company-box
+  ;;:hook (company-mode .company-box-mode))
+
+;; For Python
+(use-package python-mode
+  :hook (python-mode . lsp-deferred))
+
+(use-package lsp-jedi
+  :ensure t
+  :config
+  (with-eval-after-load "lsp-mode"
+    (add-to-list 'lsp-disabled-clients 'pyls)
+    (add-to-list 'lsp-enabled-clients 'jedi)))
 
