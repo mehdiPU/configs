@@ -279,6 +279,10 @@
   (add-hook 'c-mode-hook 'lsp-deferred)
   (add-hook 'c++-mode-hook 'lsp-deferred))
 
+(add-hook 'shell-script-mode 'lsp-mode)
+(add-hook 'shell-script-mode 'lsp-deferred)
+(add-to-list 'lsp-enabled-clients 'bash-ls)
+
 (use-package yasnippet
   :ensure t)
 
