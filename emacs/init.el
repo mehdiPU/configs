@@ -206,13 +206,25 @@
   (setq lsp-header-line-breadcrumb-segments '(path-up-to-project file symbol))
   (lsp-headerline-breadcrumb-mode))
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (lsp-mode . mehdi/lsp-mode-setup)
+  
+  :hook
+  (lsp-mode . mehdi/lsp-mode-setup)
+  
   :init
   (setq lsp-keymap-prefix "C-c l")
+  
   :config
-  (lsp-enable-which-key-integration t))
+  (lsp-enable-which-key-integration t)
+  
+  :custom
+  (lsp-diagnostics-provider flycheck))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode))
@@ -235,7 +247,7 @@
   (company-idle-dely 0.0))
 
 ;; Error
-;; (use-package evil-nerd-commenter	
+;; (use-package evil-nerd-commenter
 ;;   :bind ("M-/" . evil-comment-or-uncomment-lines))
 
 ;; Had a problem with it
@@ -246,6 +258,7 @@
 (use-package python-mode
   :hook (python-mode . lsp-deferred))
 
+
 (use-package lsp-jedi
   :ensure t
   :config
@@ -253,3 +266,16 @@
     (add-to-list 'lsp-disabled-clients 'pyls)
     (add-to-list 'lsp-enabled-clients 'jedi)))
 
+(use-package ccls
+  :ensure t
+  :config
+  (with-eval-after-load "lsp-mode"
+    (add-to-list 'lsp-enabled-clients 'ccls))
+  (add-hook 'c-mode-hook 'lsp-deferred)
+  (add-hook 'c++-mode-hook 'lsp-deferred))
+
+(use-package yasnippet
+  :insure t)
+
+(provide 'init)
+;;; init.el ends here

@@ -31,6 +31,6 @@ def main():
         print(meaninglessObject)
         print(testObject)
         testObject = TestClass(testObject.getNameString() + str(i))
-        
+
 
 main()
