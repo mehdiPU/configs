@@ -413,13 +413,20 @@
   :config
   (add-to-list 'lsp-enabled-clients 'cmakels))
 
+(defun mehdi/c-c++-mode-setup ()
+  (setq c-basic-offset 3)
+  (c-set-offset 'substatement-open 0)
+  (c-set-offset 'arglist-intro 3)
+  (c-set-offset 'arglist-close 0)
+  (add-hook 'c-mode-hook 'lsp-deferred)
+  (add-hook 'c++-mode-hook 'lsp-deferred))
+
 (use-package ccls
   :ensure t
   :config
   (with-eval-after-load "lsp-mode"
     (add-to-list 'lsp-enabled-clients 'ccls))
-  (add-hook 'c-mode-hook 'lsp-deferred)
-  (add-hook 'c++-mode-hook 'lsp-deferred))
+  (mehdi/c-c++-mode-setup))
 
 (add-hook 'shell-script-mode 'lsp-mode)
 (add-hook 'shell-script-mode 'lsp-deferred)
