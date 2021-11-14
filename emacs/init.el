@@ -2,11 +2,11 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 90)
-(defvar efs/default-variable-font-size 90)
+(defvar efs/default-font-size 94)
+(defvar efs/default-variable-font-size 94)
 
 ;; Make frame transparency overridable
-(defvar efs/frame-transparency '(98 . 98))
+(defvar efs/frame-transparency '(100 . 100))
 
 ;; Initialize package sources
 (require 'package)
